@@ -49,18 +49,18 @@ A student-focused web platform where you can practice writing AP Human Geography
 - **Custom Questions**: Paste in your own prompts
   - Practice with questions from your teacher
   - Add your own study questions
-  - Include data sets, maps, or images if needed
+  - Include images (maps, charts, data tables) for visual questions
 
 ### 2. Write Your Response
 **Clean, distraction-free writing space**
 - **Main Text Area**: Large, easy-to-read writing space
   - See your word count in real-time
-  - Your work auto-saves so you never lose progress
+  - Your work auto-saves to your browser so you never lose progress
   - Focus on writing without distractions
 - **Flexible Practice**:
-  - No name required (practice anonymously if you want)
+  - No account required - just open and start practicing
   - Optional timer to simulate exam conditions
-  - Add notes or context to remember what you were practicing
+  - Upload or paste images for questions that include visuals
 
 ### 3. Get Your Score & Feedback
 **Instant results that help you improve**
@@ -81,43 +81,64 @@ A student-focused web platform where you can practice writing AP Human Geography
 - **Visual Results**: Easy-to-read score display with progress bars
 - **Detailed Breakdown**: Understand exactly where you gained or lost points
 - **Next Steps**: Clear guidance on what to practice next
+- **Local History**: Your browser saves your recent practice sessions
 - **Quick Actions**:
   - Review your response alongside the feedback
   - Try another question to keep practicing
-  - Save your results for later review
 
-## Technical Architecture
+## Technical Architecture (No Backend Server)
 
-### Frontend
-- **Framework**: React or Next.js
-  - Component-based architecture
+### Frontend-Only Architecture
+This is a **static website** that runs entirely in the browser - no backend server required!
+
+- **Framework**: HTML, CSS, and JavaScript (or React/Vue if preferred)
+  - Single-page application
   - Responsive design for mobile/tablet/desktop
   - Clean, distraction-free interface
+  - Works offline for writing (AI grading needs internet)
 
-### Backend
-- **API Server**: Node.js/Express or Python/Flask
-  - RESTful API endpoints
-  - Request handling and validation
-  - Session management
+### AI Integration - Google Gemini (Free Tier)
+**Why Gemini Free Plan:**
+- **Free**: Up to 1,000 requests per day at no cost
+- **Fast**: Low latency responses
+- **Multimodal**: Supports text AND images (maps, charts, data tables)
+- **Generous Limits**: 250,000 tokens per minute, 15 requests per minute
 
-### AI Integration
-- **Grading Service**:
-  - OpenAI API (GPT-4) or Anthropic Claude API
-  - Custom prompt engineering for consistent grading
-  - Structured output format
-  - Rubric-aligned evaluation criteria
+**Gemini Free Tier Specs:**
+- Models: Gemini 1.5 Flash, Gemini 2.5 Flash, or newer
+- Rate limits: 5-15 requests per minute (depending on model)
+- Daily limit: ~1,000 requests per day
+- Image support: Yes! Images count as ~258-1290 tokens each
+- Max file size: 100 MB per file
 
-### Database
-- **Question Bank Storage**: PostgreSQL or MongoDB
-  - Questions table
-  - User submissions table
-  - Grading history
-  - Custom questions
+**API Key Handling Options:**
+1. **User provides their own API key** (recommended for privacy)
+   - User gets a free Gemini API key from Google AI Studio
+   - Key is stored locally in their browser (localStorage)
+   - Key never leaves their device
+2. **Environment variable at build time** (for demo/class use)
+   - API key embedded during deployment
+   - Good for teacher-hosted instances
 
-### Hosting
-- **Frontend**: Vercel, Netlify, or similar
-- **Backend**: Railway, Render, or AWS
-- **Database**: Managed database service
+### Data Storage (Browser-Based)
+**No database needed!** Everything is stored locally:
+
+- **localStorage**:
+  - User's API key (encrypted)
+  - Recent practice history
+  - Saved responses
+  - Preferences (theme, timer settings)
+- **Question Bank**:
+  - JSON file bundled with the app
+  - Can be updated by editing the JSON file
+  - No server calls needed
+
+### Hosting (Free Options)
+Since there's no backend, hosting is simple and free:
+- **GitHub Pages**: Free, automatic deployment from repo
+- **Netlify**: Free tier, drag-and-drop deployment
+- **Vercel**: Free tier, great for React apps
+- **Cloudflare Pages**: Free, fast global CDN
 
 ## Student Interface Design
 
@@ -128,7 +149,7 @@ A student-focused web platform where you can practice writing AP Human Geography
 |            AP Human Geo Skill Reflection Practice         |
 +----------------------------------------------------------+
 |                                                           |
-|  Choose a question:  [Question Library ▼] [Paste Your Own] |
+|  Choose a question:  [Question Library v] [Paste Your Own]|
 |                                                           |
 |  +-----------------------------------------------------+  |
 |  |                                                     |  |
@@ -138,10 +159,9 @@ A student-focused web platform where you can practice writing AP Human Geography
 |  |  patterns in developing countries. Use specific    |  |
 |  |  examples in your response.                        |  |
 |  |                                                     |  |
+|  |  [+ Add Image (map, chart, etc.)]                  |  |
+|  |                                                     |  |
 |  +-----------------------------------------------------+  |
-|                                                           |
-|  Need context? Add notes or paste data here (optional):   |
-|  [____________________________________________________]  |
 |                                                           |
 |  Write your skill reflection below:                       |
 |  +-----------------------------------------------------+  |
@@ -153,7 +173,7 @@ A student-focused web platform where you can practice writing AP Human Geography
 |  |                                                     |  |
 |  |                                                     |  |
 |  +-----------------------------------------------------+  |
-|  Words: 127                       Auto-saved just now    |
+|  Words: 127                       Auto-saved locally      |
 |                                                           |
 |  [     Get My Score & Feedback     ]                     |
 |                                                           |
@@ -177,8 +197,8 @@ A student-focused web platform where you can practice writing AP Human Geography
 |  ○ Geographic Terms: 1/2     Could be stronger           |
 |                                                           |
 |  What You Did Well:                                       |
-|  • Your thesis clearly answered the question              |
-|  • Good attempt at connecting ideas                       |
+|  - Your thesis clearly answered the question              |
+|  - Good attempt at connecting ideas                       |
 |                                                           |
 |  How to Improve (Start Here!):                            |
 |                                                           |
@@ -209,74 +229,71 @@ A student-focused web platform where you can practice writing AP Human Geography
 +----------------------------------------------------------+
 ```
 
-## Implementation Phases (Building the Platform Step-by-Step)
+## Implementation Phases
 
-### Phase 1: Core Practice Experience (Launch Version)
-**Timeline**: 2-3 weeks
+### Phase 1: Core Practice Experience (MVP)
 **What Students Get:**
 - Simple, clean interface to write responses
 - Paste in any practice question
+- Optional: Upload an image with the question
 - Submit and get instant score (X/10)
 - Receive specific improvement tips
 - Works on any device
 
 **Technical Build:**
-- [ ] Basic frontend UI with question display and text area
-- [ ] Custom question input
-- [ ] AI API integration for grading
-- [ ] Score output and feedback display
-- [ ] Deploy to web hosting
+- [ ] Set up project structure (HTML/CSS/JS or React)
+- [ ] Build question input area with image upload support
+- [ ] Build response text area with word count
+- [ ] Integrate Gemini API for grading
+- [ ] Display score and feedback
+- [ ] Add API key setup flow (user enters their own key)
+- [ ] Deploy to GitHub Pages or Netlify
 
 ### Phase 2: Question Library & Better Feedback
-**Timeline**: 2-3 weeks
 **What Students Get:**
 - Browse 20-30 ready-made practice questions
 - Filter questions by unit and skill type
-- See score breakdown for each rubric part (Claim, Evidence, Reasoning, Terms)
+- See score breakdown for each rubric part
 - More detailed, helpful feedback
 - Examples showing how to improve
 
 **Technical Build:**
-- [ ] Question bank database
-- [ ] Populate with practice questions
-- [ ] Question browsing interface
-- [ ] Enhanced rubric-based grading
-- [ ] Score breakdown by criteria
-- [ ] Improved feedback with examples
+- [ ] Create questions.json with practice questions
+- [ ] Build question browser/selector UI
+- [ ] Add filtering by unit and skill type
+- [ ] Enhanced rubric-based grading prompt
+- [ ] Score breakdown visualization
+- [ ] Improved feedback display with examples
 
-### Phase 3: Smoother Experience
-**Timeline**: 1-2 weeks
+### Phase 3: Better UX & Local Storage
 **What Students Get:**
 - Auto-save (never lose your work!)
-- Real-time word count
+- Practice history saved in browser
 - Visual score display with progress bars
-- Works perfectly on phones and tablets
-- Smooth animations and loading
+- Dark mode option
+- Works perfectly on phones
 
 **Technical Build:**
-- [ ] Auto-save functionality
-- [ ] Word count display
+- [ ] Implement localStorage for saving work
+- [ ] Add practice history view
 - [ ] Visual score presentation (charts/progress bars)
-- [ ] Mobile responsive design
+- [ ] Mobile responsive improvements
+- [ ] Dark mode toggle
 - [ ] Loading states and animations
-- [ ] Error handling and validation
 
-### Phase 4: Track Your Progress
-**Timeline**: 2-3 weeks
+### Phase 4: Advanced Features
 **What Students Get:**
-- Create an account to save your practice
-- See all your past attempts
-- Track score improvement over time
-- Download/print your results
-- Compare to example high-scoring responses
+- Timer mode for exam simulation
+- Compare your response to example answers
+- Export/print your results
+- Streak tracking for motivation
 
 **Technical Build:**
-- [ ] User accounts and authentication
-- [ ] Personal history dashboard
-- [ ] Export results (PDF/print)
-- [ ] Analytics and progress tracking
-- [ ] Sample response library
-- [ ] Progress visualization
+- [ ] Add optional timer feature
+- [ ] Sample high-scoring response library
+- [ ] Export to PDF/print functionality
+- [ ] Practice streak counter
+- [ ] Achievement badges (stored locally)
 
 ## How You're Graded (The Rubric Explained)
 
@@ -336,16 +353,33 @@ Every skill reflection is scored on four parts. Here's what graders look for:
 - Instead of "reasons to move": use "push factors," "pull factors"
 - Instead of "cities": use "urban areas," "metropolitan areas," "megacities"
 
-## AI Grading Strategy (How the Feedback Works)
+## AI Grading with Gemini
 
-### Student-Friendly Feedback Approach
+### Gemini API Setup
 
-The AI is programmed to act like a supportive tutor who:
-- Identifies what you did well (not just what's wrong!)
-- Explains improvements in simple, clear language
-- Provides concrete examples you can use
-- Encourages you to keep practicing
-- Focuses on the most important improvements first
+**Getting Your Free API Key:**
+1. Go to [Google AI Studio](https://aistudio.google.com/)
+2. Sign in with your Google account
+3. Click "Get API Key" in the left sidebar
+4. Create a new API key
+5. Copy the key and paste it into the app when prompted
+
+**API Call Structure:**
+```javascript
+const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=YOUR_API_KEY', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    contents: [{
+      parts: [
+        { text: systemPrompt + questionText + studentResponse },
+        // Optional: include image if question has one
+        { inline_data: { mime_type: "image/jpeg", data: base64ImageData }}
+      ]
+    }]
+  })
+});
+```
 
 ### System Prompt Template
 ```
@@ -353,6 +387,7 @@ You are a supportive AP Human Geography tutor helping a student improve their sk
 Grade this response and provide encouraging, specific feedback.
 
 Question: [QUESTION_TEXT]
+[If image attached: "The image shows a map/chart/data table that the student should reference."]
 
 Rubric:
 - Claim/Thesis (2 pts): Clear, specific claim that directly answers the question
@@ -363,122 +398,87 @@ Rubric:
 Student Response:
 [STUDENT_RESPONSE]
 
-Provide feedback in this format:
-1. Total Score (X/10) with encouraging message
-2. Score breakdown by category (Claim, Evidence, Reasoning, Terms)
-3. "What You Did Well" - 1-2 specific strengths
-4. "How to Improve" - 3-4 specific, actionable tips with examples
-5. Use student-friendly language (YOU, not "the student")
-6. Include concrete examples showing before/after improvements
-
-Format as JSON for structured display.
+Provide feedback in this exact JSON format:
+{
+  "totalScore": 7,
+  "maxScore": 10,
+  "breakdown": {
+    "claim": { "score": 2, "max": 2, "comment": "Clear thesis statement" },
+    "evidence": { "score": 2, "max": 3, "comment": "Good examples but could be more specific" },
+    "reasoning": { "score": 2, "max": 3, "comment": "Connections could be stronger" },
+    "terms": { "score": 1, "max": 2, "comment": "Limited geographic vocabulary" }
+  },
+  "strengths": ["Your thesis clearly answered the question", "Good attempt at connecting ideas"],
+  "improvements": [
+    {
+      "title": "Add More Specific Evidence",
+      "tip": "Include actual data, statistics, or specific city names",
+      "example": "Instead of 'many people moved to cities,' try 'Mexico City grew from 3M to 21M between 1950-2000'"
+    }
+  ],
+  "encouragement": "Nice work! Focus on adding more specific examples and you'll see your score improve."
+}
 ```
 
-## Technology Stack Recommendation
+## File Structure
 
-### Option 1: Full JavaScript Stack
-- **Frontend**: Next.js 14 (React)
-- **Backend**: Next.js API Routes
-- **AI**: OpenAI API (GPT-4)
-- **Database**: Vercel Postgres or Supabase
-- **Styling**: Tailwind CSS
-- **Hosting**: Vercel
+```
+she-reflect-on-my-skill/
+├── index.html              # Main HTML file
+├── styles.css              # All styling
+├── app.js                  # Main application logic
+├── gemini.js               # Gemini API integration
+├── questions.json          # Question bank
+├── README.md               # Setup instructions
+└── assets/
+    └── images/             # Any static images
+```
 
-### Option 2: Python Backend
-- **Frontend**: React + Vite
-- **Backend**: FastAPI (Python)
-- **AI**: Anthropic Claude API
-- **Database**: PostgreSQL
-- **Styling**: Tailwind CSS
-- **Hosting**: Frontend (Vercel), Backend (Railway)
+## Your Privacy (What Happens to Your Data)
 
-## Your Privacy & Data (What Happens to Your Work)
+### 100% Local - Your Data Stays With You
+Since there's no backend server:
+- **Everything stays in your browser** - nothing is sent to any server (except the AI API)
+- **Your API key stays local** - stored only in your browser's localStorage
+- **Your responses stay local** - saved in your browser, not uploaded anywhere
+- **Clear anytime** - just clear your browser data to erase everything
 
-### Privacy First Approach
-**What we believe:**
-- Your practice is YOURS - it's a safe space to learn and make mistakes
-- You control what gets shared and what stays private
-- No surprise sharing with teachers or parents without your permission
+### What Goes to Gemini API
+When you click "Get My Score":
+- Your question text is sent to Google's Gemini API
+- Your response text is sent to Google's Gemini API
+- Any attached images are sent to Google's Gemini API
+- Gemini returns the score and feedback
 
-### How Your Data is Protected
-- **Anonymous Practice**: Use the platform without creating an account if you want
-- **Secure Storage**: Your responses are encrypted and protected
-- **No Selling Data**: We never sell your information to anyone
-- **Optional Sharing**: Choose if you want to save your work or let teachers see it
-- **Clear Policies**: Simple language explaining what data we keep and why
-- **FERPA Compliant**: Meets federal student privacy standards
+**Google's AI Studio Terms:**
+- Free tier data may be used to improve Google's models (unless you use a paid plan)
+- Don't include personal information in your practice responses
+- See [Google's AI Studio Terms](https://ai.google.dev/terms) for full details
 
-### What We Store (And Why)
-- **Your Responses**: So you can track your progress (optional with account)
-- **Your Scores**: So you can see improvement over time (optional with account)
-- **Question Selections**: To recommend good practice questions for you
-- **Anonymous Usage**: To improve the platform (no personal info attached)
-
-### What We DON'T Store
-- ❌ Personal information if you don't create an account
-- ❌ Responses if you choose not to save them
-- ❌ Data we don't need
-- ❌ Anything shared with third parties
-
-### Technical Security
-- [ ] Secure data encryption
-- [ ] Protected user accounts
-- [ ] Safe API connections
-- [ ] Regular security updates
-- [ ] Data retention limits
-- [ ] Clear user consent
-
-## Success Metrics (How We Know It's Working for Students)
-
-- **Helpful Feedback**: Students understand how to improve after reading feedback
-- **Confidence Building**: Students feel more prepared for the AP exam
-- **Active Practice**: Students voluntarily practice multiple times
-- **Score Improvement**: Students see their scores increase over time
-- **Fast Results**: Feedback appears in under 30 seconds
-- **Always Available**: Platform works 99%+ of the time when students need it
-
-## Future Enhancements (Cool Features Coming Later!)
-
-### For Better Learning
-- **Progress Dashboard**: See your improvement over time with charts and stats
-- **Example Responses**: Read high-scoring sample answers to learn from
-- **Practice Streaks**: Track how many days in a row you've practiced
-- **Skill Badges**: Earn badges for mastering different question types
-- **Smart Recommendations**: Get question suggestions based on areas you need to improve
-
-### For Convenience
-- **Voice-to-Text**: Speak your answer instead of typing
-- **Mobile App**: Practice on your phone anywhere
-- **Offline Mode**: Write responses even without internet
-- **Study Groups**: Practice with friends and compare progress (anonymously)
-- **Connect to Classroom**: Sync with Google Classroom or Canvas
-- **Multi-Language**: Support for Spanish, Mandarin, and other languages
-
-### For Different Practice Styles
-- **Timed Mode**: Simulate real exam conditions with a countdown
-- **Guided Mode**: Get hints and tips while you write
-- **Challenge Mode**: Try harder questions for extra practice
-- **Review Mode**: Revisit old responses and see how you'd score now
-
-## Getting Started
+## Getting Started (For Developers)
 
 ### Prerequisites
-- Node.js 18+ or Python 3.9+
-- API key for AI service (OpenAI or Anthropic)
-- Database setup
-- Git for version control
+- A code editor (VS Code recommended)
+- A web browser
+- A free Gemini API key from [Google AI Studio](https://aistudio.google.com/)
 
-### Initial Setup Steps
-1. Initialize project repository
-2. Set up development environment
-3. Create basic project structure
-4. Install dependencies
-5. Configure environment variables
-6. Build MVP frontend
-7. Integrate AI grading
-8. Test with sample questions
-9. Deploy to staging environment
-10. Gather feedback and iterate
+### Setup Steps
+1. Clone or download this repository
+2. Open `index.html` in your browser
+3. Enter your Gemini API key when prompted
+4. Start practicing!
+
+### Deployment
+**GitHub Pages:**
+1. Push code to a GitHub repository
+2. Go to Settings > Pages
+3. Select "Deploy from a branch" > main
+4. Your site will be live at `https://username.github.io/repo-name`
+
+**Netlify (Drag & Drop):**
+1. Go to [netlify.com](https://netlify.com)
+2. Drag your project folder onto the page
+3. Done! You'll get a free URL
 
 ---
 
