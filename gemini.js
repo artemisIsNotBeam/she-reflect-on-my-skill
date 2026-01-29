@@ -51,11 +51,12 @@ const GeminiAPI = {
             this.model = client.getGenerativeModel({
                 model: this.getModelName(),
                 generationConfig: {
-                    temperature: 0.3,
-                    topK: 40,
-                    topP: 0.95,
+                    temperature: 0.0,
+                    topK: 1,
+                    topP: 0.1,
                     maxOutputTokens: 4096,
                     responseMimeType: 'application/json',
+                    seed: 67,
                 },
             });
         }
