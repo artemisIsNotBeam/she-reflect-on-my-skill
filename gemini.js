@@ -66,14 +66,15 @@ const GeminiAPI = {
     // System prompt for grading
     systemPrompt: `You are an AP Human Geography tutor. Grade the student's response and return JSON.
 
-RUBRIC (10 points total):
+RUBRIC (20 points total):
 - claim (2 pts): Clear thesis answering the question
-- evidence (3 pts): Specific examples/data supporting the claim
-- reasoning (3 pts): Explains HOW/WHY evidence supports claim
-- terms (2 pts): Uses AP Human Geography vocabulary
+- evidence (6 pts): Specific examples/data supporting the claim
+- reasoning (6 pts): Explains HOW/WHY evidence supports claim
+- realism (2 pts): Facts and examples are accurate and realistic
+- terms (4 pts): Uses AP Human Geography vocabulary
 
 Return this JSON structure:
-{"totalScore":7,"breakdown":{"claim":{"score":2,"max":2,"comment":"..."},"evidence":{"score":2,"max":3,"comment":"..."},"reasoning":{"score":2,"max":3,"comment":"..."},"terms":{"score":1,"max":2,"comment":"..."}},"strengths":["strength1","strength2"],"improvements":[{"title":"...","tip":"...","example":"..."}],"encouragement":"..."}
+{"totalScore":14,"breakdown":{"claim":{"score":2,"max":2,"comment":"..."},"evidence":{"score":4,"max":6,"comment":"..."},"reasoning":{"score":4,"max":6,"comment":"..."},"realism":{"score":1,"max":2,"comment":"..."},"terms":{"score":3,"max":4,"comment":"..."}},"strengths":["strength1","strength2"],"improvements":[{"title":"...","tip":"...","example":"..."}],"encouragement":"..."}
 
 Keep comments brief (under 15 words). Include 2 strengths and 2-3 improvements.`,
 
@@ -172,8 +173,8 @@ Grade this response according to the rubric and provide feedback in the exact JS
      */
     validateAndNormalizeResult(result) {
         const normalized = {
-            totalScore: Math.min(10, Math.max(0, result.totalScore || 0)),
-            maxScore: 10,
+            totalScore: Math.min(20, Math.max(0, result.totalScore || 0)),
+            maxScore: 20,
             breakdown: {
                 claim: {
                     score: Math.min(2, Math.max(0, result.breakdown?.claim?.score || 0)),
@@ -181,18 +182,23 @@ Grade this response according to the rubric and provide feedback in the exact JS
                     comment: result.breakdown?.claim?.comment || 'No comment provided'
                 },
                 evidence: {
-                    score: Math.min(3, Math.max(0, result.breakdown?.evidence?.score || 0)),
-                    max: 3,
+                    score: Math.min(6, Math.max(0, result.breakdown?.evidence?.score || 0)),
+                    max: 6,
                     comment: result.breakdown?.evidence?.comment || 'No comment provided'
                 },
                 reasoning: {
-                    score: Math.min(3, Math.max(0, result.breakdown?.reasoning?.score || 0)),
-                    max: 3,
+                    score: Math.min(6, Math.max(0, result.breakdown?.reasoning?.score || 0)),
+                    max: 6,
                     comment: result.breakdown?.reasoning?.comment || 'No comment provided'
                 },
-                terms: {
-                    score: Math.min(2, Math.max(0, result.breakdown?.terms?.score || 0)),
+                realism: {
+                    score: Math.min(2, Math.max(0, result.breakdown?.realism?.score || 0)),
                     max: 2,
+                    comment: result.breakdown?.realism?.comment || 'No comment provided'
+                },
+                terms: {
+                    score: Math.min(4, Math.max(0, result.breakdown?.terms?.score || 0)),
+                    max: 4,
                     comment: result.breakdown?.terms?.comment || 'No comment provided'
                 }
             },
@@ -210,6 +216,7 @@ Grade this response according to the rubric and provide feedback in the exact JS
             normalized.breakdown.claim.score +
             normalized.breakdown.evidence.score +
             normalized.breakdown.reasoning.score +
+            normalized.breakdown.realism.score +
             normalized.breakdown.terms.score;
 
         normalized.totalScore = calculatedTotal;

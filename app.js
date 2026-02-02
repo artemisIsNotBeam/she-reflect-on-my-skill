@@ -16,7 +16,9 @@ import GeminiAPI from './gemini.js';
         currentImage: null,
         imageMimeType: null,
         isLoading: false,
-        lastSaved: null
+        lastSaved: null,
+        questions: [],
+        filteredQuestions: []
     };
 
     // ============================================
@@ -57,6 +59,7 @@ import GeminiAPI from './gemini.js';
         rubricClaim: document.getElementById('rubricClaim'),
         rubricEvidence: document.getElementById('rubricEvidence'),
         rubricReasoning: document.getElementById('rubricReasoning'),
+        rubricRealism: document.getElementById('rubricRealism'),
         rubricTerms: document.getElementById('rubricTerms'),
         strengthsList: document.getElementById('strengthsList'),
         improvementsList: document.getElementById('improvementsList'),
@@ -64,7 +67,17 @@ import GeminiAPI from './gemini.js';
 
         // Toast
         errorToast: document.getElementById('errorToast'),
-        errorMessage: document.getElementById('errorMessage')
+        errorMessage: document.getElementById('errorMessage'),
+
+        // Question Library Modal
+        questionModal: document.getElementById('questionModal'),
+        browseQuestionsBtn: document.getElementById('browseQuestionsBtn'),
+        closeQuestionModal: document.getElementById('closeQuestionModal'),
+        unitFilter: document.getElementById('unitFilter'),
+        skillFilter: document.getElementById('skillFilter'),
+        difficultyFilter: document.getElementById('difficultyFilter'),
+        questionCount: document.getElementById('questionCount'),
+        questionList: document.getElementById('questionList')
     };
 
     // ============================================
@@ -75,6 +88,7 @@ import GeminiAPI from './gemini.js';
         bindEvents();
         checkApiKey();
         restoreDraft();
+        loadQuestions();
     }
 
     function loadState() {
@@ -135,6 +149,16 @@ import GeminiAPI from './gemini.js';
 
         // Back button
         elements.backBtn.addEventListener('click', showPracticePanel);
+
+        // Question library
+        elements.browseQuestionsBtn.addEventListener('click', openQuestionModal);
+        elements.closeQuestionModal.addEventListener('click', closeQuestionModal);
+        elements.questionModal.addEventListener('click', (e) => {
+            if (e.target === elements.questionModal) closeQuestionModal();
+        });
+        elements.unitFilter.addEventListener('change', filterQuestions);
+        elements.skillFilter.addEventListener('change', filterQuestions);
+        elements.difficultyFilter.addEventListener('change', filterQuestions);
     }
 
     // ============================================
@@ -373,7 +397,7 @@ import GeminiAPI from './gemini.js';
         setLoading(false);
 
         // Animate score ring
-        const percentage = result.totalScore / 10;
+        const percentage = result.totalScore / 20;
         const circumference = 2 * Math.PI * 54; // r=54 from SVG
         const offset = circumference * (1 - percentage);
 
@@ -398,6 +422,7 @@ import GeminiAPI from './gemini.js';
         updateRubricItem('rubricClaim', result.breakdown.claim);
         updateRubricItem('rubricEvidence', result.breakdown.evidence);
         updateRubricItem('rubricReasoning', result.breakdown.reasoning);
+        updateRubricItem('rubricRealism', result.breakdown.realism);
         updateRubricItem('rubricTerms', result.breakdown.terms);
 
         // Display strengths
@@ -463,10 +488,10 @@ import GeminiAPI from './gemini.js';
     }
 
     function getScoreMessage(score) {
-        if (score >= 9) return 'Outstanding! 🌟';
-        if (score >= 7) return 'Great work! Keep it up!';
-        if (score >= 5) return 'Good effort! Room to grow.';
-        if (score >= 3) return 'Keep practicing!';
+        if (score >= 18) return 'Outstanding! 🌟';
+        if (score >= 14) return 'Great work! Keep it up!';
+        if (score >= 10) return 'Good effort! Room to grow.';
+        if (score >= 6) return 'Keep practicing!';
         return 'Every attempt helps you learn!';
     }
 
@@ -483,6 +508,90 @@ import GeminiAPI from './gemini.js';
         });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ============================================
+    // Question Library
+    // ============================================
+    async function loadQuestions() {
+        try {
+            const response = await fetch('questions.json');
+            const data = await response.json();
+            state.questions = data.questions || [];
+            state.filteredQuestions = [...state.questions];
+        } catch (error) {
+            console.error('Failed to load questions:', error);
+            state.questions = [];
+            state.filteredQuestions = [];
+        }
+    }
+
+    function openQuestionModal() {
+        filterQuestions();
+        elements.questionModal.classList.remove('hidden');
+    }
+
+    function closeQuestionModal() {
+        elements.questionModal.classList.add('hidden');
+    }
+
+    function filterQuestions() {
+        const unitValue = elements.unitFilter.value;
+        const skillValue = elements.skillFilter.value;
+        const difficultyValue = elements.difficultyFilter.value;
+
+        state.filteredQuestions = state.questions.filter(q => {
+            const matchesUnit = unitValue === 'all' || q.unitNumber.toString() === unitValue;
+            const matchesSkill = skillValue === 'all' || q.skillType === skillValue;
+            const matchesDifficulty = difficultyValue === 'all' || q.difficulty === difficultyValue;
+            return matchesUnit && matchesSkill && matchesDifficulty;
+        });
+
+        renderQuestionList();
+    }
+
+    function renderQuestionList() {
+        elements.questionCount.textContent = state.filteredQuestions.length;
+
+        if (state.filteredQuestions.length === 0) {
+            elements.questionList.innerHTML = `
+                <div class="no-questions">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    <p>No questions match your filters.<br>Try adjusting your selection.</p>
+                </div>
+            `;
+            return;
+        }
+
+        elements.questionList.innerHTML = state.filteredQuestions.map(q => `
+            <div class="question-card" data-question-id="${q.id}">
+                <div class="question-meta">
+                    <span class="question-tag tag-unit">Unit ${q.unitNumber}</span>
+                    <span class="question-tag tag-skill">${escapeHtml(q.skillType)}</span>
+                    <span class="question-tag tag-difficulty ${q.difficulty}">${q.difficulty}</span>
+                </div>
+                <p class="question-text">${escapeHtml(q.question)}</p>
+            </div>
+        `).join('');
+
+        // Add click handlers
+        elements.questionList.querySelectorAll('.question-card').forEach(card => {
+            card.addEventListener('click', () => selectQuestion(card.dataset.questionId));
+        });
+    }
+
+    function selectQuestion(questionId) {
+        const question = state.questions.find(q => q.id.toString() === questionId);
+        if (question) {
+            elements.questionInput.value = question.question;
+            saveDraft();
+            closeQuestionModal();
+            elements.responseInput.focus();
+        }
     }
 
     // ============================================

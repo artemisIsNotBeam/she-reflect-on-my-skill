@@ -1,0 +1,276 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "unit": "Population & Migration",
+      "unitNumber": 2,
+      "skillType": "Explain Processes",
+      "difficulty": "medium",
+      "question": "Explain how urbanization has affected migration patterns in developing countries. Use specific examples in your response."
+    },
+    {
+      "id": 2,
+      "unit": "Population & Migration",
+      "unitNumber": 2,
+      "skillType": "Analyze Patterns",
+      "difficulty": "medium",
+      "question": "Describe the demographic transition model and explain why countries move through its stages at different rates."
+    },
+    {
+      "id": 3,
+      "unit": "Population & Migration",
+      "unitNumber": 2,
+      "skillType": "Cause & Effect",
+      "difficulty": "hard",
+      "question": "Analyze how push and pull factors influence voluntary migration. Provide specific examples of economic, environmental, and political factors."
+    },
+    {
+      "id": 4,
+      "unit": "Population & Migration",
+      "unitNumber": 2,
+      "skillType": "Compare Regions",
+      "difficulty": "medium",
+      "question": "Compare the population pyramids of a developed country and a developing country. What do the shapes tell us about each country's demographic characteristics?"
+    },
+    {
+      "id": 5,
+      "unit": "Population & Migration",
+      "unitNumber": 2,
+      "skillType": "Explain Processes",
+      "difficulty": "easy",
+      "question": "Explain what chain migration is and how it affects the destinations immigrants choose."
+    },
+    {
+      "id": 6,
+      "unit": "Cultural Patterns",
+      "unitNumber": 3,
+      "skillType": "Explain Processes",
+      "difficulty": "medium",
+      "question": "Explain how globalization has led to both cultural diffusion and cultural preservation efforts. Use specific examples."
+    },
+    {
+      "id": 7,
+      "unit": "Cultural Patterns",
+      "unitNumber": 3,
+      "skillType": "Analyze Patterns",
+      "difficulty": "medium",
+      "question": "Describe the different types of cultural diffusion (relocation, expansion, hierarchical, contagious, stimulus) and provide an example of each."
+    },
+    {
+      "id": 8,
+      "unit": "Cultural Patterns",
+      "unitNumber": 3,
+      "skillType": "Compare Regions",
+      "difficulty": "hard",
+      "question": "Compare how language and religion have shaped cultural landscapes in two different world regions."
+    },
+    {
+      "id": 9,
+      "unit": "Cultural Patterns",
+      "unitNumber": 3,
+      "skillType": "Cause & Effect",
+      "difficulty": "medium",
+      "question": "Explain how colonialism affected the distribution of languages in Africa. What challenges does this linguistic legacy create today?"
+    },
+    {
+      "id": 10,
+      "unit": "Cultural Patterns",
+      "unitNumber": 3,
+      "skillType": "Explain Processes",
+      "difficulty": "easy",
+      "question": "What is a cultural landscape? Describe how human activities have modified the natural landscape in a region you have studied."
+    },
+    {
+      "id": 11,
+      "unit": "Political Patterns",
+      "unitNumber": 4,
+      "skillType": "Analyze Patterns",
+      "difficulty": "medium",
+      "question": "Explain the concept of a nation-state and discuss why true nation-states are rare. Provide examples of multinational states and stateless nations."
+    },
+    {
+      "id": 12,
+      "unit": "Political Patterns",
+      "unitNumber": 4,
+      "skillType": "Cause & Effect",
+      "difficulty": "hard",
+      "question": "Analyze how the end of colonialism led to boundary disputes in Africa. What types of boundaries have caused the most conflict?"
+    },
+    {
+      "id": 13,
+      "unit": "Political Patterns",
+      "unitNumber": 4,
+      "skillType": "Explain Processes",
+      "difficulty": "medium",
+      "question": "Explain the concepts of centripetal and centrifugal forces. How do these forces affect the stability of a country? Use specific examples."
+    },
+    {
+      "id": 14,
+      "unit": "Political Patterns",
+      "unitNumber": 4,
+      "skillType": "Compare Regions",
+      "difficulty": "medium",
+      "question": "Compare federal and unitary systems of government. What are the advantages and disadvantages of each for managing diverse populations?"
+    },
+    {
+      "id": 15,
+      "unit": "Political Patterns",
+      "unitNumber": 4,
+      "skillType": "Analyze Patterns",
+      "difficulty": "hard",
+      "question": "Explain how supranational organizations like the European Union affect the sovereignty of member states. What are the benefits and drawbacks of membership?"
+    },
+    {
+      "id": 16,
+      "unit": "Agriculture",
+      "unitNumber": 5,
+      "skillType": "Explain Processes",
+      "difficulty": "medium",
+      "question": "Explain how the Green Revolution transformed agriculture in developing countries. What were both the positive and negative consequences?"
+    },
+    {
+      "id": 17,
+      "unit": "Agriculture",
+      "unitNumber": 5,
+      "skillType": "Analyze Patterns",
+      "difficulty": "medium",
+      "question": "Using von Thünen's model, explain how distance from a market affects agricultural land use. Why might the model not perfectly apply in the modern world?"
+    },
+    {
+      "id": 18,
+      "unit": "Agriculture",
+      "unitNumber": 5,
+      "skillType": "Compare Regions",
+      "difficulty": "hard",
+      "question": "Compare subsistence agriculture and commercial agriculture. How does each type affect the environment and local economies differently?"
+    },
+    {
+      "id": 19,
+      "unit": "Agriculture",
+      "unitNumber": 5,
+      "skillType": "Cause & Effect",
+      "difficulty": "medium",
+      "question": "Explain how climate change is affecting agricultural patterns globally. What adaptations are farmers making in response?"
+    },
+    {
+      "id": 20,
+      "unit": "Agriculture",
+      "unitNumber": 5,
+      "skillType": "Explain Processes",
+      "difficulty": "easy",
+      "question": "What is agribusiness? Explain how it differs from traditional family farming and its impact on rural communities."
+    },
+    {
+      "id": 21,
+      "unit": "Cities & Urban Land-Use",
+      "unitNumber": 6,
+      "skillType": "Analyze Patterns",
+      "difficulty": "medium",
+      "question": "Compare the concentric zone model, sector model, and multiple nuclei model of urban structure. Which model best explains the layout of a city you know?"
+    },
+    {
+      "id": 22,
+      "unit": "Cities & Urban Land-Use",
+      "unitNumber": 6,
+      "skillType": "Explain Processes",
+      "difficulty": "medium",
+      "question": "Explain the process of suburbanization in the United States. What factors contributed to suburban growth after World War II?"
+    },
+    {
+      "id": 23,
+      "unit": "Cities & Urban Land-Use",
+      "unitNumber": 6,
+      "skillType": "Cause & Effect",
+      "difficulty": "hard",
+      "question": "Analyze how gentrification affects urban neighborhoods. Who benefits and who is harmed by this process?"
+    },
+    {
+      "id": 24,
+      "unit": "Cities & Urban Land-Use",
+      "unitNumber": 6,
+      "skillType": "Compare Regions",
+      "difficulty": "hard",
+      "question": "Compare the characteristics of megacities in developed countries versus developing countries. How do their challenges differ?"
+    },
+    {
+      "id": 25,
+      "unit": "Cities & Urban Land-Use",
+      "unitNumber": 6,
+      "skillType": "Explain Processes",
+      "difficulty": "medium",
+      "question": "Explain what smart growth and new urbanism are. How do these planning approaches attempt to address problems of urban sprawl?"
+    },
+    {
+      "id": 26,
+      "unit": "Industrial & Economic Development",
+      "unitNumber": 7,
+      "skillType": "Analyze Patterns",
+      "difficulty": "medium",
+      "question": "Using Rostow's stages of economic growth model, explain how countries develop economically. What criticisms have been made of this model?"
+    },
+    {
+      "id": 27,
+      "unit": "Industrial & Economic Development",
+      "unitNumber": 7,
+      "skillType": "Explain Processes",
+      "difficulty": "medium",
+      "question": "Explain how the shift from Fordist to post-Fordist production has affected the location of manufacturing globally."
+    },
+    {
+      "id": 28,
+      "unit": "Industrial & Economic Development",
+      "unitNumber": 7,
+      "skillType": "Cause & Effect",
+      "difficulty": "hard",
+      "question": "Analyze how free trade agreements and special economic zones have affected economic development in developing countries. Use specific examples."
+    },
+    {
+      "id": 29,
+      "unit": "Industrial & Economic Development",
+      "unitNumber": 7,
+      "skillType": "Compare Regions",
+      "difficulty": "medium",
+      "question": "Compare the development strategies of China and India over the past 50 years. How have their different approaches affected their economic growth?"
+    },
+    {
+      "id": 30,
+      "unit": "Industrial & Economic Development",
+      "unitNumber": 7,
+      "skillType": "Explain Processes",
+      "difficulty": "easy",
+      "question": "What is the Human Development Index (HDI)? Explain why it might be a better measure of development than GDP alone."
+    },
+    {
+      "id": 31,
+      "unit": "Thinking Geographically",
+      "unitNumber": 1,
+      "skillType": "Analyze Patterns",
+      "difficulty": "easy",
+      "question": "Explain the difference between absolute location and relative location. Why might relative location be more useful in certain situations?"
+    },
+    {
+      "id": 32,
+      "unit": "Thinking Geographically",
+      "unitNumber": 1,
+      "skillType": "Explain Processes",
+      "difficulty": "medium",
+      "question": "Describe how GIS (Geographic Information Systems) technology is used to analyze spatial data. Provide an example of a real-world application."
+    }
+  ],
+  "units": [
+    { "number": 1, "name": "Thinking Geographically" },
+    { "number": 2, "name": "Population & Migration" },
+    { "number": 3, "name": "Cultural Patterns" },
+    { "number": 4, "name": "Political Patterns" },
+    { "number": 5, "name": "Agriculture" },
+    { "number": 6, "name": "Cities & Urban Land-Use" },
+    { "number": 7, "name": "Industrial & Economic Development" }
+  ],
+  "skillTypes": [
+    "Analyze Patterns",
+    "Explain Processes",
+    "Cause & Effect",
+    "Compare Regions"
+  ],
+  "difficulties": ["easy", "medium", "hard"]
+}
