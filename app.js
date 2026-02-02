@@ -573,6 +573,7 @@ import GeminiAPI from './gemini.js';
                     <span class="question-tag tag-unit">Unit ${q.unitNumber}</span>
                     <span class="question-tag tag-skill">${escapeHtml(q.skillType)}</span>
                     <span class="question-tag tag-difficulty ${q.difficulty}">${q.difficulty}</span>
+                    ${q.image ? `<span class="question-tag tag-image" title="${escapeHtml(q.imageAlt || 'Image')}">🖼️ Image</span>` : ''}
                 </div>
                 <p class="question-text">${escapeHtml(q.question)}</p>
             </div>
@@ -584,15 +585,39 @@ import GeminiAPI from './gemini.js';
         });
     }
 
-    function selectQuestion(questionId) {
-        const question = state.questions.find(q => q.id.toString() === questionId);
-        if (question) {
-            elements.questionInput.value = question.question;
-            saveDraft();
-            closeQuestionModal();
-            elements.responseInput.focus();
+    async function selectQuestion(questionId) {
+    const question = state.questions.find(q => q.id.toString() === questionId);
+    if (question) {
+        elements.questionInput.value = question.question;
+        
+        // Handle stimulus image if it exists
+        if (question.image) {
+            elements.previewImg.src = question.image;
+            elements.imagePreview.hidden = false;
+            elements.uploadPrompt.hidden = true;
+            
+            // Convert to base64 so the Gemini API can process it
+            try {
+                const response = await fetch(question.image);
+                const blob = await response.blob();
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    state.currentImage = reader.result.split(',')[1];
+                    state.imageMimeType = blob.type;
+                };
+                reader.readAsDataURL(blob);
+            } catch (err) {
+                console.warn("Could not load stimulus image for API:", err);
+            }
+        } else {
+            removeImage(); // Clear any previous image
         }
+
+        saveDraft();
+        closeQuestionModal();
+        elements.responseInput.focus();
     }
+}
 
     // ============================================
     // History Management

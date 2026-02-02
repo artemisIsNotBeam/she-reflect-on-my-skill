@@ -255,7 +255,37 @@
       "skillType": "Explain Processes",
       "difficulty": "medium",
       "question": "Describe how GIS (Geographic Information Systems) technology is used to analyze spatial data. Provide an example of a real-world application."
-    }
+    },
+    {
+    "id": 33,
+    "unit": "Population & Migration",
+    "unitNumber": 2,
+    "skillType": "Explain Processes",
+    "difficulty": "hard",
+    "question": "Analyze the population pyramid for Japan. Identify the specific demographic challenges (e.g., dependency ratio, labor shortages) associated with this 'constrictive' shape and explain how a pronatalist policy might be implemented to address these issues.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Population_pyramid_of_Japan_from_2020_to_2100.gif",
+    "imageAlt": "Japan 2023 population pyramid showing a narrow base and wide top."
+  },
+  {
+    "id": 34,
+    "unit": "Agriculture",
+    "unitNumber": 5,
+    "skillType": "Analyze Patterns",
+    "difficulty": "medium",
+    "question": "The image shows global milk and pork production patterns. Identify one spatial pattern shown and explain how cultural taboos or religious practices influence the distribution of these agricultural products in Southwest Asia and North Africa.",
+    "image": "https://www.visualcapitalist.com/wp-content/uploads/2023/06/CP_Livestock_Pig_Full.png",
+    "imageAlt": "World map showing distribution of pork production."
+  },
+  {
+    "id": 35,
+    "unit": "Cities & Urban Land-Use",
+    "unitNumber": 6,
+    "skillType": "Cause & Effect",
+    "difficulty": "medium",
+    "question": "Explain the concept of 'food deserts' within urban areas. Using the provided map concept, identify how historical redlining and modern gentrification have contributed to the unequal distribution of grocery stores in metropolitan regions.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Data_on_food_deserts.png/500px-Data_on_food_deserts.png",
+    "imageAlt": "Thematic map showing areas with limited access to healthy food."
+  }
   ],
   "units": [
     { "number": 1, "name": "Thinking Geographically" },

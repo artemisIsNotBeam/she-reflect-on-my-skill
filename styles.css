@@ -124,6 +124,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    
 }
 
 /* ============================================
@@ -312,7 +313,7 @@ body {
 
 .panel {
     width: 100%;
-    max-width: 720px;
+    max-width: 75%;
     animation: fadeIn 0.4s ease;
 }
 
@@ -508,8 +509,8 @@ body {
 
 .image-preview img {
     width: 100%;
-    max-height: 300px;
     object-fit: contain;
+    max-height: 600px;
     border-radius: var(--radius-lg);
 }
 
